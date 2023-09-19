@@ -154,6 +154,19 @@ public class TeamService {
         return coach;
     }
 
+    /**
+     * Get a list of all coaches belonging to specific team.
+     * @param teamId The unique ID of the team to retrieve all coaches from.
+     * @return A list of coaches.
+     */
+    public List<Coach> getTeamCoaches(Long teamId){
+        Optional<Team> team = Optional.ofNullable(teamRepository.findByTeamIdAndUser_UserId(teamId, TeamService.getCurrentLoggedInUser().getUserId()));
+        if(team.isEmpty()){
+            throw new InformationNotFoundException("Team with id " + teamId + " not found or does not belong to this user.");
+        }
+        return team.get().getCoachList();
+    }
+
 
 
 
