@@ -235,6 +235,23 @@ public class TeamService {
         playerObject.setUser(TeamService.getCurrentLoggedInUser());
         return playerRepository.save(playerObject);
     }
+    /**
+     * Retrieve a player from a specific team by ID.
+     * @param teamId The unique ID of the team you want to retrieve the player from.
+     * @param playerId The unique ID of the player you want to retrieve.
+     * @return The player object.
+     */
+    public Optional<Player> getTeamPlayer(Long teamId, Long playerId){
+        Optional<Team> team = Optional.ofNullable(teamRepository.findByTeamIdAndUser_UserId(teamId, TeamService.getCurrentLoggedInUser().getUserId()));
+        if(team.isEmpty()){
+            throw new InformationNotFoundException("Team with id " + teamId + " not found or does not belong to this user.");
+        }
+        Optional<Player> player = playerRepository.findByTeam_TeamId(teamId).stream().filter(p -> p.getPlayerId().equals(playerId)).findFirst();
+        if(player.isEmpty()){
+            throw new InformationNotFoundException("Player with id "+ playerId + " does not belong to this team or does not exist");
+        }
+        return player;
+    }
 
 
 }
