@@ -6,6 +6,7 @@ import com.example.teammanagement.repository.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -29,6 +30,18 @@ public class TeamService {
             throw new InformationNotFoundException("Team with id " + teamId + " not found.");
         }
         return team;
+    }
+
+    /**
+     * Retrieve all teams from the database.
+     * @return A list of team objects.
+     */
+    public List<Team> getTeams(){
+        List<Team> teamList = teamRepository.findAll();
+        if(teamList.isEmpty()){
+            throw new InformationNotFoundException("No teams found.");
+        }
+        return teamList;
     }
 
 }
