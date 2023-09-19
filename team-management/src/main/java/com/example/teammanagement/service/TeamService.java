@@ -147,7 +147,7 @@ public class TeamService {
         if(team.isEmpty()){
             throw new InformationNotFoundException("Team with id " + teamId + " not found or does not belong to this user.");
         }
-        Optional<Coach> coach = coachRepository.findByCoachId(teamId).stream().filter(c -> c.getCoachId().equals(coachId)).findFirst();
+        Optional<Coach> coach = coachRepository.findByTeam_TeamId(teamId).stream().filter(c -> c.getCoachId().equals(coachId)).findFirst();
         if(coach.isEmpty()){
             throw new InformationNotFoundException("Coach with id "+ coachId + " does not belong to this team or does not exist");
         }

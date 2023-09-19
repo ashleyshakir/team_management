@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 public interface CoachRepository extends JpaRepository<Coach, Long> {
     public Coach findByFirstNameAndLastNameAndUser_UserId(String firstName, String lastName, Long userId);
-    List<Coach> findByCoachId(Long coachId);
+    List<Coach> findByTeam_TeamId(Long coachId);
 }
