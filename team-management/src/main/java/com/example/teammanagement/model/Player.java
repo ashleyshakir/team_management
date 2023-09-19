@@ -36,4 +36,71 @@ public class Player {
     )
     private List<Coach> coachList;
 
+    public Player() {
+    }
+
+    public Player(Long playerId, String name, int age, Team team) {
+        this.playerId = playerId;
+        this.name = name;
+        this.age = age;
+        this.team = team;
+    }
+
+    public Long getPlayerId() {
+        return playerId;
+    }
+
+    public void setPlayerId(Long playerId) {
+        this.playerId = playerId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public List<Coach> getCoachList() {
+        return coachList;
+    }
+
+    public void setCoachList(List<Coach> coachList) {
+        this.coachList = coachList;
+    }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "playerId=" + playerId +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", team=" + team +
+                '}';
+    }
 }
