@@ -127,7 +127,7 @@ public class TeamService {
         if(team.isEmpty()){
             throw new InformationNotFoundException("Team with id " + teamId + " not found or does not belong to this user.");
         }
-        Coach coach = coachRepository.findByFirstNameAndLastNameAndUser_UserId(coachObject.getFirstName(),coachObject.getLastName(),TeamService.getCurrentLoggedInUser().getUserId());
+        Coach coach = coachRepository.findByFirstNameAndLastName(coachObject.getFirstName(),coachObject.getLastName());
         if(coach != null){
             throw new InformationExistException("Coach " +coachObject.getFirstName() +" " + coachObject.getLastName() + " already exists.");
         }
