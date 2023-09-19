@@ -264,6 +264,30 @@ public class TeamService {
         }
         return team.get().getPlayerList();
     }
+    /**
+     * Update player object of a specific team.
+     * @param teamId The unique ID for the team from which the player to update belongs.
+     * @param playerId The unique ID of the player to update.
+     * @param playerObject The requested player object containing new data to update the existing player object with.
+     * @return The updated player object.
+     */
+    public Player updateTeamPlayer(Long teamId, Long playerId, Player playerObject){
+        Optional<Team> team = Optional.ofNullable(teamRepository.findByTeamIdAndUser_UserId(teamId, TeamService.getCurrentLoggedInUser().getUserId()));
+        if(team.isEmpty()){
+            throw new InformationNotFoundException("Team with id " + teamId + " not found or does not belong to this user.");
+        }
+        Optional<Player> player = playerRepository.findByTeam_TeamId(teamId).stream().filter(p -> p.getPlayerId().equals(playerId)).findFirst();
+        if(player.isEmpty()){
+            throw new InformationNotFoundException("Player with id "+ playerId + " does not belong to this team or does not exist");
+        } else if (player.get().getName().equals(playerObject.getName())){
+            throw new InformationExistException("Player " +playerObject.getName() +" already exists.");
+        } else {
+            playerObject.setPlayerId(playerId);
+            playerObject.setTeam(team.get());
+            playerObject.setUser(TeamService.getCurrentLoggedInUser());
+            return playerRepository.save(playerObject);
+        }
+    }
 
 
 }
