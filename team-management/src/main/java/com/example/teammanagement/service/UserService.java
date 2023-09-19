@@ -1,5 +1,6 @@
 package com.example.teammanagement.service;
 
+import com.example.teammanagement.model.User;
 import com.example.teammanagement.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,5 +12,9 @@ public class UserService {
     @Autowired
     public UserService(UserRepository userRepository){
         this.userRepository = userRepository;
+    }
+
+    public User createUser(User userObject){
+        return userObject;
     }
 }
