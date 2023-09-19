@@ -49,4 +49,10 @@ public class TeamController {
     public Coach createTeamCoach(@PathVariable(value = "teamId") Long teamId, @RequestBody Coach coachObject) {
         return teamService.createTeamCoach(teamId, coachObject);
     }
+
+    @GetMapping(path = "/teams/{teamId}/coaches/{coachId}")
+    public Optional<Coach> getTeamCoach(@PathVariable(value = "teamId") Long teamId, @PathVariable(value = "coachId") Long coachId) {
+        return teamService.getTeamCoach(teamId, coachId);
+    }
+
 }
