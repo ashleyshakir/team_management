@@ -3,6 +3,7 @@ package com.example.teammanagement.service;
 import com.example.teammanagement.exception.InformationExistException;
 import com.example.teammanagement.model.User;
 import com.example.teammanagement.repository.UserRepository;
+import com.example.teammanagement.security.JWTUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Service;
 public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JWTUtils jwtUtils;
+
 
     @Autowired
     public UserService(UserRepository userRepository, @Lazy PasswordEncoder passwordEncoder){

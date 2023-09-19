@@ -2,6 +2,8 @@ package com.example.teammanagement.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -55,5 +57,16 @@ public class SecurityConfiguration {
         http.addFilterBefore(authJwtRequestFilter(), UsernamePasswordAuthenticationFilter.class);
         // Build and return the configured security filter chain
         return http.build();
+    }
+
+    /**
+     * Creates and configures an instance of the AuthenticationManager.
+     * @param authConfig The AuthenticationConfiguration used to obtain the AuthenticationManager.
+     * @return An instance of the configured AuthenticationManager.
+     * @throws Exception If an error occurs while obtaining or configuring the AuthenticationManager.
+     */
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
+        return authConfig.getAuthenticationManager();
     }
 }
