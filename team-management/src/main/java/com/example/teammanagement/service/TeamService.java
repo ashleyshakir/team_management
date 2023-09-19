@@ -2,6 +2,7 @@ package com.example.teammanagement.service;
 
 import com.example.teammanagement.exception.InformationExistException;
 import com.example.teammanagement.exception.InformationNotFoundException;
+import com.example.teammanagement.model.Coach;
 import com.example.teammanagement.model.Team;
 import com.example.teammanagement.model.User;
 import com.example.teammanagement.repository.CoachRepository;
@@ -114,5 +115,23 @@ public class TeamService {
         }
         teamRepository.delete(team.get());
     }
+
+    public Coach createTeamCoach(Long teamId, Coach coachObject){
+        Optional<Team> team = Optional.ofNullable(teamRepository.findByTeamIdAndUser_UserId(teamId, TeamService.getCurrentLoggedInUser().getUserId()));
+        if(team.isEmpty()){
+            throw new InformationNotFoundException("Team with id " + teamId + " not found or does not belong to this user.");
+        }
+        Coach coach = coachRepository.findByFirstNameAndLastNameAndUser_UserId(coachObject.getFirstName(),coachObject.getLastName(),TeamService.getCurrentLoggedInUser().getUserId());
+        if(coach != null){
+            throw new InformationExistException("Coach " +coachObject.getFirstName() +" " + coachObject.getLastName() + " already exists.");
+        }
+        coachObject
+    }
+
+
+
+
+
+
 
 }
