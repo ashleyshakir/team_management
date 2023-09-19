@@ -168,6 +168,31 @@ public class TeamService {
     }
 
     /**
+     * Update coach object of a specific team.
+     * @param teamId The unique ID for the team from which the coach to update belongs.
+     * @param coachId The unique ID of the coach to update.
+     * @param coachObject The requested coach object containing new data to update the existing coach object with.
+     * @return The updated coach object.
+     */
+    public Coach updateTeamCoach(Long teamId, Long coachId, Coach coachObject){
+        Optional<Team> team = Optional.ofNullable(teamRepository.findByTeamIdAndUser_UserId(teamId, TeamService.getCurrentLoggedInUser().getUserId()));
+        if(team.isEmpty()){
+            throw new InformationNotFoundException("Team with id " + teamId + " not found or does not belong to this user.");
+        }
+        Optional<Coach> coach = coachRepository.findByTeam_TeamId(teamId).stream().filter(c -> c.getCoachId().equals(coachId)).findFirst();
+        if(coach.isEmpty()){
+            throw new InformationNotFoundException("Coach with id "+ coachId + " does not belong to this team or does not exist");
+        } else if (coach.get().getFirstName().equals(coachObject.getFirstName()) && coach.get().getLastName().equals(coachObject.getLastName())){
+            throw new InformationExistException("Coach " +coachObject.getFirstName() +" " + coachObject.getLastName() + " already exists.");
+        } else {
+            coachObject.setCoachId(coachId);
+            coachObject.setUser(TeamService.getCurrentLoggedInUser());
+            return coachRepository.save(coachObject);
+        }
+
+    }
+
+    /**
      * Delete a coach from a specific team.
      * @param teamId The unique ID of the team from which to delete a coach.
      * @param coachId The unique ID of the coach to delete.
