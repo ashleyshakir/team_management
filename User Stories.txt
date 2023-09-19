@@ -1,0 +1,52 @@
+﻿User Registration 
+________________
+
+
+As a new user, I want to be able to register an account with my username and password.
+
+
+User Login 
+________________
+
+
+As a registered user, I want to be able to log in using my username and password.
+
+
+Error Handling
+________________
+
+
+As a user, I want to see informative error messages if something goes wrong (e.g., invalid login credentials, duplicate coach names, etc.).
+
+
+Security
+________________
+
+
+As a user, I expect my data to be secure, and only authorized users should be able to perform certain actions (e.g., only admins can delete coaches).
+
+
+Admin Permissions
+________________
+
+
+As an admin user, I want to be able to add, view, update, and delete coaches in the system.
+As an admin user, I want to be able to add, view, update, and delete players in the system.
+As an admin user, I want to be able to add, view, update, and delete teams in the system.
+As an admin user, I want to be able to assign a coach to a team.
+As an admin user, I want to be able to assign a player to a team.
+
+
+Coach Permissions
+________________
+
+
+As a coach, I want to be able to see the team I am assigned to.
+
+
+Player Permissions
+________________
+
+
+As a player, I want to be able to see the team I am assigned to.
+As a player, I want to be able to see the coach assigned to my team.
