@@ -116,6 +116,12 @@ public class TeamService {
         teamRepository.delete(team.get());
     }
 
+    /**
+     * Create a new coach object that belongs to a team.
+     * @param teamId The unique id of the team the coach belongs to.
+     * @param coachObject The requested coach object the user wants to create.
+     * @return The newly created coach.
+     */
     public Coach createTeamCoach(Long teamId, Coach coachObject){
         Optional<Team> team = Optional.ofNullable(teamRepository.findByTeamIdAndUser_UserId(teamId, TeamService.getCurrentLoggedInUser().getUserId()));
         if(team.isEmpty()){
@@ -128,6 +134,24 @@ public class TeamService {
         coachObject.setUser(TeamService.getCurrentLoggedInUser());
         coachObject.setTeam(team.get());
         return coachRepository.save(coachObject);
+    }
+
+    /**
+     * Retrieve a coach from a specific team by ID.
+     * @param teamId The unique ID of the team you want to retrieve the coach from.
+     * @param coachId The unique ID of the coach you want to retrieve.
+     * @return The coach object.
+     */
+    public Optional<Coach> getTeamCoach(Long teamId, Long coachId){
+        Optional<Team> team = Optional.ofNullable(teamRepository.findByTeamIdAndUser_UserId(teamId, TeamService.getCurrentLoggedInUser().getUserId()));
+        if(team.isEmpty()){
+            throw new InformationNotFoundException("Team with id " + teamId + " not found or does not belong to this user.");
+        }
+        Optional<Coach> coach = coachRepository.findByCoachId(teamId).stream().filter(c -> c.getCoachId().equals(coachId)).findFirst();
+        if(coach.isEmpty()){
+            throw new InformationNotFoundException("Coach with id "+ coachId + " does not belong to this team or does not exist");
+        }
+        return coach;
     }
 
 
