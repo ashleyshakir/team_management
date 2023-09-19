@@ -1,5 +1,6 @@
 package com.example.teammanagement.controller;
 
+import com.example.teammanagement.model.Coach;
 import com.example.teammanagement.model.Team;
 import com.example.teammanagement.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,5 +43,10 @@ public class TeamController {
     @DeleteMapping(path = "/teams/{teamId}")
     public void deleteTeam(@PathVariable(value = "teamId") Long teamId) {
         teamService.deleteTeam(teamId);
+    }
+
+    @PostMapping(path = "/teams/{teamId}/coaches/")
+    public Coach createTeamCoach(@PathVariable(value = "teamId") Long teamId, @RequestBody Coach coachObject) {
+        return teamService.createTeamCoach(teamId, coachObject);
     }
 }
