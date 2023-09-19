@@ -1,5 +1,7 @@
 package com.example.teammanagement.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -14,6 +16,11 @@ public class Team {
     @Column
     private String location;
 
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     public Team() {
     }
 
@@ -21,6 +28,14 @@ public class Team {
         this.teamId = teamId;
         this.name = name;
         this.location = location;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Long getTeamId() {
