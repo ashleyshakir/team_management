@@ -61,7 +61,7 @@ public class TeamController {
     }
 
     @PutMapping(path = "/teams/{teamId}/coaches/{coachId}")
-    public Coach updateTeamCoach(Long teamId, Long coachId, Coach coachObject) {
+    public Coach updateTeamCoach(@PathVariable(value = "teamId") Long teamId, @PathVariable(value = "coachId") Long coachId, @RequestBody Coach coachObject) {
         return teamService.updateTeamCoach(teamId,coachId,coachObject);
     }
 
