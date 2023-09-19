@@ -125,7 +125,7 @@ public class TeamService {
         if(coach != null){
             throw new InformationExistException("Coach " +coachObject.getFirstName() +" " + coachObject.getLastName() + " already exists.");
         }
-        coachObject
+        coach
     }
 
 

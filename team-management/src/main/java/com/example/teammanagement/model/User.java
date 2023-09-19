@@ -26,6 +26,10 @@ public class User {
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Team> teamList;
 
+    @OneToMany(mappedBy = "user")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Coach> coachList;
+
     public User() {
     }
 
@@ -57,6 +61,22 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<Team> getTeamList() {
+        return teamList;
+    }
+
+    public void setTeamList(List<Team> teamList) {
+        this.teamList = teamList;
+    }
+
+    public List<Coach> getCoachList() {
+        return coachList;
+    }
+
+    public void setCoachList(List<Coach> coachList) {
+        this.coachList = coachList;
     }
 
     @Override
