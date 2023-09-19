@@ -18,6 +18,11 @@ public class UserController {
         this.userService = userService;
     }
 
+    /**
+     * Create a new user by processing a POST request to the "/register/" endpoint.
+     * @param userObject The user object to be created, provided in the request body.
+     * @return The created user object.
+     */
     @PostMapping(path = "/register/")
     public User createUser(@RequestBody User userObject){
         return userService.createUser(userObject);
