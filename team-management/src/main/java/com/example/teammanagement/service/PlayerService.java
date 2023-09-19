@@ -17,15 +17,10 @@ import java.util.Optional;
 public class PlayerService {
 
     private PlayerRepository playerRepository;
-    private TeamRepository teamRepository;
 
     @Autowired
     public void setPlayerRepository(PlayerRepository playerRepository) {
         this.playerRepository = playerRepository;
-    }
-    @Autowired
-    public void setTeamRepository(TeamRepository teamRepository) {
-        this.teamRepository = teamRepository;
     }
 
     /**

@@ -13,6 +13,10 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+/**
+ * This class provides seed data for the application by implementing the CommandLineRunner interface.
+ * It populates the database with initial user, team, coach, and player data for testing purposes.
+ */
 @Component
 public class SeedData implements CommandLineRunner {
 
@@ -37,6 +41,11 @@ public class SeedData implements CommandLineRunner {
         user.setPassword(passwordEncoder.encode("ash12345!"));
         userRepository.save(user);
 
+        User user2 = new User();
+        user2.setEmailAddress("t@gmail.com");
+        user2.setPassword(passwordEncoder.encode("12345!"));
+        userRepository.save(user2);
+
         Team team = new Team();
         team.setName("Charlotte United");
         team.setLocation("Charlotte, NC");
@@ -46,7 +55,7 @@ public class SeedData implements CommandLineRunner {
         Team team2 = new Team();
         team2.setName("Charleston Soccer Club");
         team2.setLocation("Charleston, SC");
-        team2.setUser(user);
+        team2.setUser(user2);
         teamRepository.save(team2);
 
         Coach coach1 = new Coach();
@@ -62,6 +71,13 @@ public class SeedData implements CommandLineRunner {
         coach2.setTeam(team);
         coach2.setUser(user);
         coachRepository.save(coach2);
+
+        Coach coach3 = new Coach();
+        coach3.setFirstName("Ellie");
+        coach3.setLastName("Robins");
+        coach3.setTeam(team2);
+        coach3.setUser(user2);
+        coachRepository.save(coach3);
 
         Player player1 = new Player();
         player1.setName("Billy");
@@ -88,14 +104,14 @@ public class SeedData implements CommandLineRunner {
         player4.setName("Sara");
         player4.setAge(14);
         player4.setTeam(team2);
-        player4.setUser(user);
+        player4.setUser(user2);
         playerRepository.save(player4);
 
         Player player5 = new Player();
         player5.setName("Bailey");
         player5.setAge(14);
         player5.setTeam(team2);
-        player5.setUser(user);
+        player5.setUser(user2);
         playerRepository.save(player5);
 
     }

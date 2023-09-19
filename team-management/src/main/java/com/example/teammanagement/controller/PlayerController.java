@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/players")
@@ -22,12 +21,12 @@ public class PlayerController {
         this.playerService = playerService;
     }
 
-    @GetMapping(path = "/{playerId}/coaches/") // http://localhost:9094/api/players/1/coaches/
+    @GetMapping(path = "/{playerId}/coaches/")
     public String getPlayerCoaches(@PathVariable(value = "playerId") Long playerId){
         return playerService.getPlayerCoaches(playerId);
     }
 
-    @GetMapping(path="/{playerId}")
+    @GetMapping(path="/{playerId}/team/")
     public String getPlayerTeam(@PathVariable(value = "playerId") Long playerId){
         return playerService.getPlayerTeam(playerId);
     }
