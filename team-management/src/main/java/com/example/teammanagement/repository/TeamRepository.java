@@ -4,17 +4,19 @@ import com.example.teammanagement.model.Team;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * A repository interface for managing team entities in the database.
  */
 @Repository
 public interface TeamRepository extends JpaRepository<Team, Long> {
     /**
-     * Finds a team by its name in the database.
-     * @param teamName The name of the team to find.
-     * @return The team associated with the name.
+     * Retrieve a list of teams belonging to a user with a specific ID.
+     * @param userId The user ID of the user to retrieve the list of teams from.
+     * @return A list of team objects belonging to the specific user.
      */
-    Team findByName(String teamName);
+    List<Team> findByUser_UserId(Long userId);
 
     /**
      * Retrieves a team by its ID and user ID from the repository.
