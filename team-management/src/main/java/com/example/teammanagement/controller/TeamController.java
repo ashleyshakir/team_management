@@ -20,17 +20,22 @@ public class TeamController {
     }
 
     @PostMapping(path = "/teams/")
-    public Team createTeam(@RequestBody Team teamObject){
+    public Team createTeam(@RequestBody Team teamObject) {
         return teamService.createTeam(teamObject);
     }
 
     @GetMapping(path = "/teams/{teamId}")
-    public Optional<Team> getTeam(@PathVariable(value = "teamId") Long teamId){
+    public Optional<Team> getTeam(@PathVariable(value = "teamId") Long teamId) {
         return teamService.getTeam(teamId);
     }
 
     @GetMapping(path = "/teams/")
     public List<Team> getTeams() {
         return teamService.getTeams();
+    }
+
+    @PutMapping(path = "/teams/{teamId}")
+    public Team updateTeam(@PathVariable(value = "teamId") Long teamId, @RequestBody Team teamObject) {
+        return teamService.updateTeam(teamId, teamObject);
     }
 }
