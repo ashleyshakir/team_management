@@ -4,6 +4,7 @@ import com.example.teammanagement.exception.InformationExistException;
 import com.example.teammanagement.exception.InformationNotFoundException;
 import com.example.teammanagement.model.Team;
 import com.example.teammanagement.model.User;
+import com.example.teammanagement.repository.CoachRepository;
 import com.example.teammanagement.repository.TeamRepository;
 import com.example.teammanagement.security.MyUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +20,17 @@ public class TeamService {
     Logger logger = Logger.getLogger(TeamService.class.getName());
 
     private TeamRepository teamRepository;
+    private CoachRepository coachRepository;
 
     @Autowired
     public void setTeamRepository(TeamRepository teamRepository){
         this.teamRepository = teamRepository;
     }
+    @Autowired
+    public void setCoachRepository(CoachRepository coachRepository) {
+        this.coachRepository = coachRepository;
+    }
+
     /**
      * Retrieves the current logged-in user from the security context.
      * @return Returns the user object.
