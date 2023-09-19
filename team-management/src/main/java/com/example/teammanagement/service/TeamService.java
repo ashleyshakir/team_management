@@ -82,14 +82,15 @@ public class TeamService {
      * @return The updated team object.
      */
     public Team updateTeam(Long teamId, Team teamObject){
-        Optional<Team> team = teamRepository.findById(teamId);
+        Optional<Team> team = Optional.ofNullable(teamRepository.findByTeamIdAndUser_UserId(teamId, TeamService.getCurrentLoggedInUser().getUserId()));
         if(team.isEmpty()){
-            throw new InformationNotFoundException("Team with id " + teamId + " not found.");
+            throw new InformationNotFoundException("Team with id " + teamId + " not found or does not belong to user with id " + TeamService.getCurrentLoggedInUser().getUserId());
         } else {
             if(teamObject.getName().equals(team.get().getName())){
                 throw new InformationExistException("A team with the name " + teamObject.getName() + " already exists.");
             } else{
                 teamObject.setTeamId(teamId);
+                teamObject.setUser(TeamService.getCurrentLoggedInUser());
                 return teamRepository.save(teamObject);
             }
         }
