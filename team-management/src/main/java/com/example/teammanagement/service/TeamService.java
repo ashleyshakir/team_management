@@ -67,9 +67,9 @@ public class TeamService {
      * @return A list of team objects.
      */
     public List<Team> getTeams(){
-        List<Team> teamList = teamRepository.findAll();
+        List<Team> teamList = teamRepository.findByUser_UserId(TeamService.getCurrentLoggedInUser().getUserId());
         if(teamList.isEmpty()){
-            throw new InformationNotFoundException("No teams found.");
+            throw new InformationNotFoundException("No teams found for user with id " + TeamService.getCurrentLoggedInUser().getUserId());
         }
         return teamList;
     }
