@@ -1,8 +1,11 @@
 package com.example.teammanagement.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "teams")
@@ -21,6 +24,10 @@ public class Team {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @OneToMany(mappedBy = "team", orphanRemoval = true)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Coach> coachList;
+
     public Team() {
     }
 
@@ -29,7 +36,13 @@ public class Team {
         this.name = name;
         this.location = location;
     }
+    public List<Coach> getCoachList() {
+        return coachList;
+    }
 
+    public void setCoachList(List<Coach> coachList) {
+        this.coachList = coachList;
+    }
     public User getUser() {
         return user;
     }

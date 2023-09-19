@@ -1,5 +1,7 @@
 package com.example.teammanagement.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -13,6 +15,11 @@ public class Coach {
     private String firstName;
     @Column
     private String lastName;
+
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "team_id")
+    private Team team;
 
     public Coach() {
     }
