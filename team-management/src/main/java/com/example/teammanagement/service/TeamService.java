@@ -190,7 +190,6 @@ public class TeamService {
             coachObject.setUser(TeamService.getCurrentLoggedInUser());
             return coachRepository.save(coachObject);
         }
-
     }
 
     /**
