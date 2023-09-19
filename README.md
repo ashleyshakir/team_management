@@ -19,11 +19,11 @@ I started the project by defining user stories and creating an Entity-Relationsh
 
 ### User Stories
 
-For user stories, please refer to this [User Stories document](https://docs.google.com/document/d/1U15LIwvgWZmKLysJjzKo1JIwUK3FL-fvPc1L0ujd6SE/edit?usp=sharing).
+For user stories, please refer to this [User Stories document](User Stories.txt).
 
 ### ERD Diagram
 
-![Entity-Relationship Diagram](https://drive.google.com/file/d/1lgfBpULG2NmTmva_ctO247qh8bArGc7q/view?usp=sharing)
+![Entity-Relationship Diagram](Sports Team Management ERD Diagram.png)
 
 ### Planning Documentation
 
