@@ -60,6 +60,11 @@ public class TeamController {
         return teamService.getTeamCoaches(teamId);
     }
 
+    @PutMapping(path = "/teams/{teamId}/coaches/{coachId}")
+    public Coach updateTeamCoach(Long teamId, Long coachId, Coach coachObject) {
+        return teamService.updateTeamCoach(teamId,coachId,coachObject);
+    }
+
     @DeleteMapping(path = "/teams/{teamId}/coaches/{coachId}")
     public void deleteTeamCoach(@PathVariable(value = "teamId") Long teamId, @PathVariable(value = "coachId") Long coachId){
         teamService.deleteTeamCoach(teamId,coachId);
