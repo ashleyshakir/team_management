@@ -12,9 +12,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 @Service
 public class TeamService {
+    Logger logger = Logger.getLogger(TeamService.class.getName());
 
     private TeamRepository teamRepository;
 
@@ -37,11 +39,12 @@ public class TeamService {
      * @return The newly created team object.
      */
     public Team createTeam(Team teamObject){
-        Team team = teamRepository.findByNameAndUserId(teamObject.getName(),TeamService.getCurrentLoggedInUser().getUserId());
+        logger.info("User ID: " + TeamService.getCurrentLoggedInUser().getUserId());
+        Team team = teamRepository.findByNameAndUser_UserId(teamObject.getName(),TeamService.getCurrentLoggedInUser().getUserId());
         if(team != null){
             throw new InformationExistException("A team with the name " + teamObject.getName() + " already exists.");
         }
-        teamObject.setUser(getCurrentLoggedInUser());
+        teamObject.setUser(TeamService.getCurrentLoggedInUser());
         return teamRepository.save(teamObject);
     }
 
@@ -52,9 +55,9 @@ public class TeamService {
      * @return The team object.
      */
     public Optional<Team> getTeam(Long teamId){
-        Optional<Team> team = teamRepository.findById(teamId);
+        Optional<Team> team = Optional.ofNullable(teamRepository.findByTeamIdAndUser_UserId(teamId, TeamService.getCurrentLoggedInUser().getUserId()));
         if(team.isEmpty()){
-            throw new InformationNotFoundException("Team with id " + teamId + " not found.");
+            throw new InformationNotFoundException("Team with id " + teamId + " not found or does not belong to this user.");
         }
         return team;
     }
