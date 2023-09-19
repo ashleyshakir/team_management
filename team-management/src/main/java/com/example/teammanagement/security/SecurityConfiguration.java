@@ -38,13 +38,22 @@ public class SecurityConfiguration {
      */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        // urls added for testing purposes - remove later
-        http.authorizeRequests().antMatchers("/auth/users", "/auth/users/login/", "/auth/users/register/","/api/teams/", "/api/teams/{teamId}/").permitAll()
+        // any url that starts with '/auth/users' or auth/users/login/ or auth/users/register/, allow access
+        http.authorizeRequests().antMatchers("/auth/users", "/auth/users/login/", "/auth/users/register/").permitAll()
+                // Allow access to H2 database console (only for development purposes)
                 .antMatchers("/h2-console/**").permitAll()
+                // Require authentication for any other request
                 .anyRequest().authenticated()
+                // Set the session creation policy to STATELESS (no HTTP sessions)
                 .and().sessionManagement()
+                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                // Disable CSRF protection
                 .and().csrf().disable()
+                // Disable frame options, necessary when using H2 database
                 .headers().frameOptions().disable();
+        // Add a custom JWT authentication filter before the standard UsernamePasswordAuthenticationFilter
+        http.addFilterBefore(authJwtRequestFilter(), UsernamePasswordAuthenticationFilter.class);
+        // Build and return the configured security filter chain
         return http.build();
     }
 }
