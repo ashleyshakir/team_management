@@ -186,6 +186,7 @@ public class TeamService {
             throw new InformationExistException("Coach " +coachObject.getFirstName() +" " + coachObject.getLastName() + " already exists.");
         } else {
             coachObject.setCoachId(coachId);
+            coachObject.setTeam(team.get());
             coachObject.setUser(TeamService.getCurrentLoggedInUser());
             return coachRepository.save(coachObject);
         }
