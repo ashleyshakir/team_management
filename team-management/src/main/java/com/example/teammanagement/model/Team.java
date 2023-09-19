@@ -28,6 +28,10 @@ public class Team {
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Coach> coachList;
 
+    @OneToMany(mappedBy = "team", orphanRemoval = true)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Player> playerList;
+
     public Team() {
     }
 
@@ -36,6 +40,15 @@ public class Team {
         this.name = name;
         this.location = location;
     }
+
+    public List<Player> getPlayerList() {
+        return playerList;
+    }
+
+    public void setPlayerList(List<Player> playerList) {
+        this.playerList = playerList;
+    }
+
     public List<Coach> getCoachList() {
         return coachList;
     }

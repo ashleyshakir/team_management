@@ -3,6 +3,7 @@ package com.example.teammanagement.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "coaches")
@@ -26,6 +27,10 @@ public class Coach {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @JsonIgnore
+    @ManyToMany(mappedBy = "coachList")
+    private List<Player> playerList;
+
     public Coach() {
     }
 
@@ -34,6 +39,14 @@ public class Coach {
         this.firstName = firstName;
         this.lastName = lastName;
         this.team = team;
+    }
+
+    public List<Player> getPlayerList() {
+        return playerList;
+    }
+
+    public void setPlayerList(List<Player> playerList) {
+        this.playerList = playerList;
     }
 
     public User getUser() {

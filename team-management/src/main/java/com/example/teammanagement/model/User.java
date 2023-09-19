@@ -30,6 +30,10 @@ public class User {
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Coach> coachList;
 
+    @OneToMany(mappedBy = "user")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Player> playerList;
+
     public User() {
     }
 
@@ -77,6 +81,14 @@ public class User {
 
     public void setCoachList(List<Coach> coachList) {
         this.coachList = coachList;
+    }
+
+    public List<Player> getPlayerList() {
+        return playerList;
+    }
+
+    public void setPlayerList(List<Player> playerList) {
+        this.playerList = playerList;
     }
 
     @Override
