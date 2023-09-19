@@ -3,9 +3,11 @@ package com.example.teammanagement.service;
 import com.example.teammanagement.exception.InformationExistException;
 import com.example.teammanagement.exception.InformationNotFoundException;
 import com.example.teammanagement.model.Coach;
+import com.example.teammanagement.model.Player;
 import com.example.teammanagement.model.Team;
 import com.example.teammanagement.model.User;
 import com.example.teammanagement.repository.CoachRepository;
+import com.example.teammanagement.repository.PlayerRepository;
 import com.example.teammanagement.repository.TeamRepository;
 import com.example.teammanagement.security.MyUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,7 @@ public class TeamService {
 
     private TeamRepository teamRepository;
     private CoachRepository coachRepository;
+    private PlayerRepository playerRepository;
 
     @Autowired
     public void setTeamRepository(TeamRepository teamRepository){
@@ -30,6 +33,10 @@ public class TeamService {
     @Autowired
     public void setCoachRepository(CoachRepository coachRepository) {
         this.coachRepository = coachRepository;
+    }
+    @Autowired
+    public void setPlayerRepository(PlayerRepository playerRepository) {
+        this.playerRepository = playerRepository;
     }
 
     /**
@@ -208,5 +215,6 @@ public class TeamService {
         }
         coachRepository.delete(coach.get());
     }
+
 
 }
