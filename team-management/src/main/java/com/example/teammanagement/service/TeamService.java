@@ -59,4 +59,18 @@ public class TeamService {
         return teamList;
     }
 
+    public Team updateTeam(Long teamId, Team teamObject){
+        Optional<Team> team = teamRepository.findById(teamId);
+        if(team.isEmpty()){
+            throw new InformationNotFoundException("Team with id " + teamId + " not found.");
+        } else {
+            if(teamObject.getName().equals(team.get().getName())){
+                throw new InformationExistException("A team with the name " + teamObject.getName() + " already exists.");
+            } else{
+                teamObject.setTeamId(teamId);
+                return teamRepository.save(teamObject);
+            }
+        }
+    }
+
 }

@@ -28,7 +28,8 @@ public class SecurityConfiguration {
      */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/auth/users", "/auth/users/login/", "/auth/users/register/").permitAll()
+        // urls added for testing purposes - remove later
+        http.authorizeRequests().antMatchers("/auth/users", "/auth/users/login/", "/auth/users/register/","/api/teams/", "/api/teams/{teamId}/").permitAll()
                 .antMatchers("/h2-console/**").permitAll()
                 .anyRequest().authenticated()
                 .and().sessionManagement()
