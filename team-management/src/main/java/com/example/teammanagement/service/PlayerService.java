@@ -29,16 +29,38 @@ public class PlayerService {
     }
 
     /**
-     * Retrieve list of coaches for specific player.
-     * @param playerId The unique ID for the player to retrieve coach list for.
-     * @return A list of the player's coaches.
+     * Retrieve the list of coaches for a specific player.
+     * @param playerId The unique ID for the player to retrieve the coach list for.
+     * @return A String list of the player's coaches.
      */
-    public List<Coach> getPlayerCoaches(Long playerId){
+    public String getPlayerCoaches(Long playerId){
         Optional<Player> player = playerRepository.findById(playerId);
         if(player.isEmpty()){
             throw new InformationNotFoundException("No player found with id " + playerId);
         }
-        return player.get().getCoachList();
+        List<Coach> teamCoachList = player.get().getTeam().getCoachList();
+        if(teamCoachList.isEmpty()){
+            return "No coaches assigned.";
+        }
+        String coaches = "";
+        for (Coach coach : teamCoachList) {
+            String lastName = coach.getLastName();
+            coaches += "Coach " + lastName + "\n";
+        }
+        return coaches;
+    }
+
+    /**
+     * Retrieves name of the team a specific player is assigned to.
+     * @param playerId The unique ID of the player.
+     * @return A string representing the player's team name.
+     */
+    public String getPlayerTeam(Long playerId){
+        Optional<Player> player = playerRepository.findById(playerId);
+        if(player.isEmpty()){
+            throw new InformationNotFoundException("No player found with id " + playerId);
+        }
+        return "Team: " + player.get().getTeam().getName();
     }
 
 }

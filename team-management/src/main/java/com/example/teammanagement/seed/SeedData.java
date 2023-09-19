@@ -59,7 +59,7 @@ public class SeedData implements CommandLineRunner {
         Coach coach2 = new Coach();
         coach2.setFirstName("Brooke");
         coach2.setLastName("Hogg");
-        coach2.setTeam(team2);
+        coach2.setTeam(team);
         coach2.setUser(user);
         coachRepository.save(coach2);
 
