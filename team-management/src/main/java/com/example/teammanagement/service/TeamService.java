@@ -288,6 +288,22 @@ public class TeamService {
             return playerRepository.save(playerObject);
         }
     }
+    /**
+     * Delete a player from a specific team.
+     * @param teamId The unique ID of the team from which to delete a player.
+     * @param playerId The unique ID of the player to delete.
+     */
+    public void deleteTeamPlayer(Long teamId, Long playerId){
+        Optional<Team> team = Optional.ofNullable(teamRepository.findByTeamIdAndUser_UserId(teamId, TeamService.getCurrentLoggedInUser().getUserId()));
+        if(team.isEmpty()){
+            throw new InformationNotFoundException("Team with id " + teamId + " not found or does not belong to this user.");
+        }
+        Optional<Player> player = playerRepository.findByTeam_TeamId(teamId).stream().filter(p -> p.getPlayerId().equals(playerId)).findFirst();
+        if(player.isEmpty()){
+            throw new InformationNotFoundException("Player with id "+ playerId + " does not belong to this team or does not exist");
+        }
+        playerRepository.delete(player.get());
+    }
 
 
 }
