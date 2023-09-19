@@ -57,5 +57,19 @@ public class SeedData implements CommandLineRunner {
         player1.setUser(user);
         playerRepository.save(player1);
 
+        Player player2 = new Player();
+        player2.setName("Thomas");
+        player2.setAge(10);
+        player2.setTeam(team);
+        player2.setUser(user);
+        playerRepository.save(player2);
+
+        Player player3 = new Player();
+        player3.setName("Ricky");
+        player3.setAge(9);
+        player3.setTeam(team);
+        player3.setUser(user);
+        playerRepository.save(player3);
+
     }
 }
