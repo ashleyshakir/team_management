@@ -85,5 +85,9 @@ public class TeamController {
     public List<Player> getTeamPlayers(@PathVariable(value = "teamId") Long teamId){
         return teamService.getTeamPlayers(teamId);
     }
+    @PutMapping(path = "/teams/{teamId}/players/{playerId}")
+    public Player updateTeamPlayer(@PathVariable(value = "teamId") Long teamId, @PathVariable(value = "playerId") Long playerId, @RequestBody Player playerObject) {
+        return teamService.updateTeamPlayer(teamId,playerId,playerObject);
+    }
 
 }
