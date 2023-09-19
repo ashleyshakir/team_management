@@ -22,7 +22,7 @@ public interface TeamRepository extends JpaRepository<Team, Long> {
      * Retrieves a team by its ID and user ID from the repository.
      * @param teamId The team ID.
      * @param userId The user ID associated with the team.
-     * @return The team object with the speciifed ID and user ID.
+     * @return The team object with the specified ID and user ID.
      */
     Team findByTeamIdAndUser_UserId(Long teamId, Long userId);
 
