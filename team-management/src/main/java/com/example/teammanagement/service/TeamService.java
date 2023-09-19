@@ -3,8 +3,11 @@ package com.example.teammanagement.service;
 import com.example.teammanagement.exception.InformationExistException;
 import com.example.teammanagement.exception.InformationNotFoundException;
 import com.example.teammanagement.model.Team;
+import com.example.teammanagement.model.User;
 import com.example.teammanagement.repository.TeamRepository;
+import com.example.teammanagement.security.MyUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +22,14 @@ public class TeamService {
     public void setTeamRepository(TeamRepository teamRepository){
         this.teamRepository = teamRepository;
     }
+    /**
+     * Retrieves the current logged-in user from the security context.
+     * @return Returns the user object.
+     */
+    public static User getCurrentLoggedInUser(){
+        MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return userDetails.getUser();
+    }
 
     /**
      * Create a new team object.
@@ -26,10 +37,11 @@ public class TeamService {
      * @return The newly created team object.
      */
     public Team createTeam(Team teamObject){
-        Team team = teamRepository.findByName(teamObject.getName());
+        Team team = teamRepository.findByNameAndUserId(teamObject.getName(),TeamService.getCurrentLoggedInUser().getUserId());
         if(team != null){
             throw new InformationExistException("A team with the name " + teamObject.getName() + " already exists.");
         }
+        teamObject.setUser(getCurrentLoggedInUser());
         return teamRepository.save(teamObject);
     }
 
