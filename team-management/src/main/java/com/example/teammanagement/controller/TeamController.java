@@ -38,4 +38,9 @@ public class TeamController {
     public Team updateTeam(@PathVariable(value = "teamId") Long teamId, @RequestBody Team teamObject) {
         return teamService.updateTeam(teamId, teamObject);
     }
+
+    @DeleteMapping(path = "/teams/{teamId}")
+    public void deleteTeam(@PathVariable(value = "teamId") Long teamId) {
+        teamService.deleteTeam(teamId);
+    }
 }
