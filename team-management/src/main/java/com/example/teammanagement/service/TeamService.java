@@ -59,6 +59,13 @@ public class TeamService {
         return teamList;
     }
 
+    /**
+     * Update an existing team object by finding the team's id and replacing
+     * its data with the requested teamObject data.
+     * @param teamId The unique id of the team to be updated.
+     * @param teamObject The requested team object containing new data to update the existing team object with.
+     * @return The updated team object.
+     */
     public Team updateTeam(Long teamId, Team teamObject){
         Optional<Team> team = teamRepository.findById(teamId);
         if(team.isEmpty()){
@@ -71,6 +78,14 @@ public class TeamService {
                 return teamRepository.save(teamObject);
             }
         }
+    }
+
+    public void deleteTeam(Long teamId){
+        Optional<Team> team = teamRepository.findById(teamId);
+        if(team.isEmpty()){
+            throw new InformationNotFoundException("Team with id " + teamId + " not found.");
+        }
+        teamRepository.delete(team.get());
     }
 
 }
