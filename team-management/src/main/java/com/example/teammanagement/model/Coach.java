@@ -24,10 +24,19 @@ public class Coach {
     public Coach() {
     }
 
-    public Coach(Long coachId, String firstName, String lastName) {
+    public Coach(Long coachId, String firstName, String lastName, Team team) {
         this.coachId = coachId;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.team = team;
+    }
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
     }
 
     public Long getCoachId() {
@@ -60,6 +69,7 @@ public class Coach {
                 "coachId=" + coachId +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", team=" + team +
                 '}';
     }
 }
