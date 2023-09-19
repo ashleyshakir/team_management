@@ -216,5 +216,26 @@ public class TeamService {
         coachRepository.delete(coach.get());
     }
 
+    /**
+     * Creates a new player associated with a team and the currently logged-in user.
+     * @param teamId The unique ID of the team to which the player will belong.
+     * @param playerObject The player object to be created.
+     * @return The newly created player.
+     */
+    public Player createTeamPlayer(Long teamId, Player playerObject){
+        Optional<Team> team = Optional.ofNullable(teamRepository.findByTeamIdAndUser_UserId(teamId, TeamService.getCurrentLoggedInUser().getUserId()));
+        if(team.isEmpty()){
+            throw new InformationNotFoundException("Team with id " + teamId + " not found or does not belong to this user.");
+        }
+        Player player = playerRepository.findByName(playerObject.getName());
+        if(player != null){
+            throw new InformationExistException("Player " +playerObject.getName() + " already exists.");
+        }
+        playerObject.setTeam(team.get());
+        playerObject.setCoachList(team.get().getCoachList());
+        playerObject.setUser(TeamService.getCurrentLoggedInUser());
+        return playerRepository.save(playerObject);
+    }
+
 
 }
