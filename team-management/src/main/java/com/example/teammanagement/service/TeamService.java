@@ -167,10 +167,21 @@ public class TeamService {
         return team.get().getCoachList();
     }
 
-
-
-
-
-
+    /**
+     * Delete a coach from a specific team.
+     * @param teamId The unique ID of the team from which to delete a coach.
+     * @param coachId The unique ID of the coach to delete.
+     */
+    public void deleteTeamCoach(Long teamId, Long coachId){
+        Optional<Team> team = Optional.ofNullable(teamRepository.findByTeamIdAndUser_UserId(teamId, TeamService.getCurrentLoggedInUser().getUserId()));
+        if(team.isEmpty()){
+            throw new InformationNotFoundException("Team with id " + teamId + " not found or does not belong to this user.");
+        }
+        Optional<Coach> coach = coachRepository.findByTeam_TeamId(teamId).stream().filter(c -> c.getCoachId().equals(coachId)).findFirst();
+        if(coach.isEmpty()){
+            throw new InformationNotFoundException("Coach with id "+ coachId + " does not belong to this team or does not exist");
+        }
+        coachRepository.delete(coach.get());
+    }
 
 }
