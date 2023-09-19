@@ -96,10 +96,14 @@ public class TeamService {
         }
     }
 
+    /**
+     * Deletes a team object from the repository by its unique ID.
+     * @param teamId The unique ID of the team to be deleted.
+     */
     public void deleteTeam(Long teamId){
-        Optional<Team> team = teamRepository.findById(teamId);
+        Optional<Team> team = Optional.ofNullable(teamRepository.findByTeamIdAndUser_UserId(teamId, TeamService.getCurrentLoggedInUser().getUserId()));
         if(team.isEmpty()){
-            throw new InformationNotFoundException("Team with id " + teamId + " not found.");
+            throw new InformationNotFoundException("Team with id " + teamId + " not found or does not belong to user with id "+ TeamService.getCurrentLoggedInUser().getUserId());
         }
         teamRepository.delete(team.get());
     }
