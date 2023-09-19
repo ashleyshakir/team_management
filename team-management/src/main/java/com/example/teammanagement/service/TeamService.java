@@ -1,5 +1,6 @@
 package com.example.teammanagement.service;
 
+import com.example.teammanagement.exception.InformationExistException;
 import com.example.teammanagement.exception.InformationNotFoundException;
 import com.example.teammanagement.model.Team;
 import com.example.teammanagement.repository.TeamRepository;
@@ -18,6 +19,20 @@ public class TeamService {
     public void setTeamRepository(TeamRepository teamRepository){
         this.teamRepository = teamRepository;
     }
+
+    /**
+     * Create a new team object.
+     * @param teamObject The requested team object the user wants to create.
+     * @return The newly created team object.
+     */
+    public Team createTeam(Team teamObject){
+        Team team = teamRepository.findByName(teamObject.getName());
+        if(team != null){
+            throw new InformationExistException("A team with the name " + teamObject.getName() + " already exists.");
+        }
+        return teamRepository.save(teamObject);
+    }
+
 
     /**
      * Retrieve a Team object from the database by its id.
