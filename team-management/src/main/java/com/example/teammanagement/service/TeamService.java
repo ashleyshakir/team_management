@@ -232,7 +232,6 @@ public class TeamService {
             throw new InformationExistException("Player " +playerObject.getName() + " already exists.");
         }
         playerObject.setTeam(team.get());
-        playerObject.setCoachList(team.get().getCoachList());
         playerObject.setUser(TeamService.getCurrentLoggedInUser());
         return playerRepository.save(playerObject);
     }
