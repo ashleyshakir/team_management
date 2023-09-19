@@ -20,6 +20,16 @@ public class SecurityConfiguration {
     public BCryptPasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
+
+    /**
+     * Defines a Spring Bean for the JwtRequestFilter.
+     * @return An instance of the JwtRequestFilter.
+     */
+    @Bean
+    public JwtRequestFilter authJwtRequestFilter(){
+        return new JwtRequestFilter();
+    }
+
     /**
      * Configures various security settings for different URL patterns
      * @param http The HttpSecurity object used to configure the security settings
