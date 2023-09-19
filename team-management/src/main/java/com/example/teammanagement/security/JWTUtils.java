@@ -39,4 +39,13 @@ public class JWTUtils {
                 .signWith(SignatureAlgorithm.HS256, jwtSecret)
                 .compact();
     }
+    /**
+     * Get username from JWT
+     * @param token The JWT from which the username is to be extracted.
+     * @return The username contained within the JWT.
+     */
+    public String getUserNameFromJwtToken(String token){
+        return Jwts.parserBuilder().setSigningKey(jwtSecret)
+                .build().parseClaimsJws(token).getBody().getSubject();
+    }
 }
