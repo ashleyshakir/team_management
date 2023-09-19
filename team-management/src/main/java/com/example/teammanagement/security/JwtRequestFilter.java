@@ -2,6 +2,7 @@ package com.example.teammanagement.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -27,6 +28,20 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     @Autowired
     public void setJwtUtils(JWTUtils jwtUtils) {
         this.jwtUtils = jwtUtils;
+    }
+
+    /**
+     * Parses a JSON Web Token (JWT) from the "Authorization" header of an HTTP request.
+     * @param request The HttpServletRequest containing the "Authorization" header.
+     * @return The extracted JWT string, or null if not found.
+     */
+    private String parseJwt(HttpServletRequest request){
+        String headerAuth = request.getHeader("Authorization");
+        // find out if the header contains the word "bearer"
+        if(StringUtils.hasLength(headerAuth) && headerAuth.startsWith("Bearer")){
+            return headerAuth.substring(7); // return everything after "Bearer "
+        }
+        return null;
     }
 
     @Override
