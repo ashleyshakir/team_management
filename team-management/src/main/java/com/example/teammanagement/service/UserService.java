@@ -32,6 +32,11 @@ public class UserService {
         }
     }
 
+    /**
+     * Retrieves a user by their email address from the user repository.
+     * @param emailAddress The email address of the user to be retrieved.
+     * @return Returns the user object associated with the email address.
+     */
     public User findUserByEmailAddress(String emailAddress){
         return userRepository.findUserByEmailAddress(emailAddress);
     }
