@@ -60,5 +60,10 @@ public class TeamController {
         return teamService.getTeamCoaches(teamId);
     }
 
+    @DeleteMapping(path = "/teams/{teamId}/coaches/{coachId}")
+    public void deleteTeamCoach(@PathVariable(value = "teamId") Long teamId, @PathVariable(value = "coachId") Long coachId){
+        teamService.deleteTeamCoach(teamId,coachId);
+    }
+
 
 }
