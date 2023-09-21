@@ -30,9 +30,8 @@ My project contains multiple models, including User, Coach, Player, and Team. Th
 
 [Link to Entity-Relationship Diagram](./Sports%20Team%20Management%20ERD%20Diagram.png)<br>
 ### Planning Documentation
-This project management board encompassed columns such as "Todo," "In Progress," "Done," and "Tested." The thorough planning documentation provided a structured roadmap, facilitating a streamlined workflow that minimized errors and ensured the project's smooth progression. The project board is linked to the project repository:
-
-[Link to GitHub Project](https://github.com/ashleyshakir/team_management.git)<br>
+This project management board encompassed columns such as "Todo," "In Progress," "Done," and "Tested." The thorough planning documentation provided a structured roadmap, facilitating a streamlined workflow that minimized errors and ensured the project's smooth progression. 
+![GitHub Project Planning Screenshot](./project%20planning.png)<br>
 ### REST API Endpoints
 My project includes the following features:
 - CRUD operations for teams, coaches, and players. 
